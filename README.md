@@ -12,7 +12,7 @@ The code was developed locally and has been moved, executed on expanse system. I
 
 
 
-Files Descriptions
+## Files Descriptions
       1) IMDbActDir.build -
       2) IMDbActDir.distr.run -
       3) IMDbActDir.java – Contains class declaration of IMDbActDir class. This class 
@@ -22,10 +22,41 @@ Files Descriptions
       4) IMDbActDir.distr.out – Contains the output written by the reducer function
       5) IMDB_Datasets – IMDB dataset that is provided we need to compute on.
       
-Analysis 
+## Analysis 
 We have done the analysis in three ways, 3 mappers/1 Reducer, 3 mappers/3 reducers, and 3 mappers/5 reducers. Based on the running times, we can state that for our logic 3M/3R took lesser time to compute the result and increasing the number of reducers to 5 did not reduce the compute time.
 Following are the screenshots of the results running times,
 
 3M/1R
 
 ![1R](https://github.com/abhi43/Hadoop-map-Reduce/assets/17944096/159988be-58bb-4ab6-8fcc-ff52b341d21f)
+
+
+
+3M/3R
+
+![image](https://github.com/abhi43/Hadoop-map-Reduce/assets/17944096/e3495b6e-6ba9-4871-82ab-97dd1e6f24eb)
+
+
+
+3M/5R
+
+![image](https://github.com/abhi43/Hadoop-map-Reduce/assets/17944096/5ae74252-3378-4228-b56c-c0242279e1af)
+
+
+
+## Configuration Details 
+
+We have used Hadoop library for the following: -
+    1) To import Job, default mapper and reducer class .
+    2) Packages for handling multiple inputs -
+    3) Packages for handling input formats
+    4) Hash map for quick lookup if an element is present. ( For example, if an actor’s name is 
+       present in director’s list.)
+       
+      
+## Additional Results
+    Number of tuples in output for each title type:-
+    1) TvMovie – 1299
+    2) movie - 10259
+    3) short - 26150
+
