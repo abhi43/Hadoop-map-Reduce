@@ -1,0 +1,11 @@
+#!/bin/bash
+module load hadoop
+module load openjdk
+rm -rf IMDbActDir.jar
+rm -rf classes
+mkdir -p classes
+javac -d classes -cp classes:`$HADOOP_HOME/bin/hadoop classpath` IMDbActDir.java
+jar cf IMDbActDir.jar -C classes .
+
+echo "Compilation completed."
+

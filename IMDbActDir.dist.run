@@ -1,0 +1,32 @@
+#!/bin/bash
+#SBATCH -A uot167
+#SBATCH --job-name="IMDb Act n Direct"
+#SBATCH --output="IMDbActDir.distr.out"
+#SBATCH --partition=compute
+## allocate 3 nodes for the Hadoop cluster: 3 datanodes, from which 1 is namenode
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=8
+#SBATCH --mem=5G
+#SBATCH --export=ALL 
+#SBATCH --time=60
+
+export HADOOP_CONF_DIR=/home/$USER/expans
+
+module load hadoop
+module load openjdk
+myhadoop-configure.sh
+start-dfs.sh
+start-yarn.sh
+
+#hdfs dfs -rm -r /user/$USER/*
+#hdfs dfs -mkdir -p /user/$USER
+hdfs dfs -mkdir -p /user/$USER/input1
+hdfs dfs -put ~/IMDbActDir/IMDB_Datasets/*.txt /user/$USER/input1/
+hadoop jar IMDbActDir.jar IMDbActDir /user/$USER/input1/IMDB_ACTORS.txt /user/$USER/input1/IMDB_DIRECTORS.txt /user/$USER/input1/IMDB_TITLES.txt /user/$USER/output
+rm -rf output-distr
+mkdir output-distr
+hdfs dfs -get /user/$USER/output/* output-distr
+
+stop-yarn.sh
+stop-dfs.sh
+
